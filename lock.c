@@ -13,8 +13,6 @@ void* my_thread(void * param) {
 	for (int i = 0; i < 10000; i++) {
 		pthread_mutex_lock(&m);
 		shared++;
-
-		if (shared == 200) return;
 		pthread_mutex_unlock(&m);
 	}
 
