@@ -5,7 +5,7 @@
 #define THREAD_COUNT 20
 
 int shared = 0;
-pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t m;
 
 void* my_thread(void * param) {
 	printf("Entered the thread\n");
@@ -20,6 +20,8 @@ void* my_thread(void * param) {
 }
 
 int main() {
+	pthread_mutex_init(&m, NULL);
+
 	pthread_t thread[THREAD_COUNT];
 
 	printf("Started main function\n");
@@ -30,7 +32,8 @@ int main() {
 	for (size_t i = 0; i < THREAD_COUNT; i++)
 		pthread_join(thread[i], NULL);
 
-	printf("Final value of shared=%d", shared);
+	printf("Final value of shared=%d\n", shared);
 
+	pthread_mutex_destroy(&m);
 	return 0;
 }
